@@ -150,6 +150,8 @@ try {
             </div>
         </div>
 
+        <div id="alerta-api" class="alert alert-warning d-none" role="alert"></div>
+
         <!-- TARJETAS ESTADÍSTICAS -->
         <div class="row g-3 mb-4" id="estadisticas">
 

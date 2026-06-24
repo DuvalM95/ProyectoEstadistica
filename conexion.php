@@ -21,6 +21,11 @@ function obtener_supabase_config(): array
         $url = trim((string) getenv('SUPABASE_PROJECT_URL'));
     }
 
+    $url = rtrim($url, '/');
+    if (preg_match('#/rest/v1/?$#', $url)) {
+        $url = preg_replace('#/rest/v1/?$#', '', $url);
+    }
+
     $key = trim((string) getenv('SUPABASE_SERVICE_ROLE_KEY'));
     if ($key === '') {
         $key = trim((string) getenv('SUPABASE_KEY'));

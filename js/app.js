@@ -150,9 +150,12 @@ async function cargarDatos() {
         const datos = await respuesta.json();
 
         if (datos.estado_api !== 'ok') {
+            mostrarErrorAPI(datos.mensaje || 'No se pudieron cargar los datos.');
             console.error('Error en API:', datos.mensaje);
             return;
         }
+
+        ocultarErrorAPI();
 
         // 1. Actualizar tarjetas estadísticas
         actualizarEstadisticas(datos.estadisticas);
@@ -193,6 +196,20 @@ function ocultarIndicadorActualizacion() {
 /* ==========================================================
    ACTUALIZAR TARJETAS ESTADÍSTICAS
    ========================================================== */
+function mostrarErrorAPI(mensaje) {
+    const alerta = document.getElementById('alerta-api');
+    if (!alerta) return;
+    alerta.textContent = mensaje;
+    alerta.classList.remove('d-none');
+}
+
+function ocultarErrorAPI() {
+    const alerta = document.getElementById('alerta-api');
+    if (!alerta) return;
+    alerta.textContent = '';
+    alerta.classList.add('d-none');
+}
+
 function actualizarEstadisticas(stats) {
     if (!stats) return;
     setText('stat-humedad-promedio', stats.humedad_promedio ?? '0');
