@@ -130,15 +130,31 @@ function normalizar_registro(array $registro): array
 
 function obtener_registros_dashboard(int $limite = 5000): array
 {
-    $respuesta = supabase_get(SUPABASE_TABLE, [
-        'select' => 'id,humedad,fecha_hora',
-        'order' => 'id.desc',
-        'limit' => (string) $limite,
-    ]);
-
     $registros = [];
-    foreach ($respuesta as $fila) {
-        $registros[] = normalizar_registro($fila);
+    $tamanoPagina = 1000;
+    $offset = 0;
+
+    while (count($registros) < $limite) {
+        $respuesta = supabase_get(SUPABASE_TABLE, [
+            'select' => 'id,humedad,fecha_hora',
+            'order' => 'id.desc',
+            'limit' => (string) min($tamanoPagina, max(1, $limite - count($registros))),
+            'offset' => (string) $offset,
+        ]);
+
+        if ($respuesta === []) {
+            break;
+        }
+
+        foreach ($respuesta as $fila) {
+            $registros[] = normalizar_registro($fila);
+        }
+
+        if (count($respuesta) < $tamanoPagina) {
+            break;
+        }
+
+        $offset += $tamanoPagina;
     }
 
     return $registros;
