@@ -15,7 +15,7 @@ require_once 'conexion.php';
 $respuesta = [];
 
 try {
-    $registros = obtener_registros_dashboard(1000);
+    $registros = obtener_registros_dashboard(5000);
 
     $respuesta['estadisticas'] = [
         'total' => count($registros),

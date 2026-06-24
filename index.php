@@ -11,7 +11,7 @@ require_once 'conexion.php';
 
 $datos_iniciales = [];
 try {
-    $registros = obtener_registros_dashboard(1000);
+    $registros = obtener_registros_dashboard(5000);
     $datos_iniciales = [
         'total' => count($registros),
         'h_prom' => count($registros) > 0 ? round(array_sum(array_column($registros, 'humedad')) / count($registros), 1) : 0,

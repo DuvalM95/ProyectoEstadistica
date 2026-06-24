@@ -19,7 +19,7 @@ if (isset($_GET['export']) && $_GET['export'] === 'csv') {
     fputcsv($output, ['ID', 'Humedad (%)', 'Fecha y Hora']);
 
     try {
-        $registros = obtener_registros_dashboard(1000);
+        $registros = obtener_registros_dashboard(5000);
         foreach ($registros as $fila) {
             fputcsv($output, [
                 $fila['id'],

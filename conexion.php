@@ -128,7 +128,7 @@ function normalizar_registro(array $registro): array
     ];
 }
 
-function obtener_registros_dashboard(int $limite = 1000): array
+function obtener_registros_dashboard(int $limite = 5000): array
 {
     $respuesta = supabase_get(SUPABASE_TABLE, [
         'select' => 'id,humedad,fecha_hora',
