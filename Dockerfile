@@ -2,7 +2,7 @@ FROM php:8.2-cli
 
 WORKDIR /app
 
-COPY ProyectoEstadistica /app
+COPY . /app
 
 EXPOSE 10000
 
